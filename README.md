@@ -5,7 +5,7 @@ revenge-of-the-PNGs
 
 TODO:
 
-	-Code cleanup
+	-Code cleanup, including improved commenting
 	-Improve projectile hit detection
 	-Grenades
 	-New opponents with different methods of movement towards player
@@ -14,5 +14,5 @@ TODO:
 
 Screenshots:
 
-	![screenshot 1](screenshots/screenshot_1.png)
-	![screenshot 2](screenshots/screenshot_2.png)
+![screenshot 1](screenshots/screenshot_1.png)
+![screenshot 2](screenshots/screenshot_2.png)
