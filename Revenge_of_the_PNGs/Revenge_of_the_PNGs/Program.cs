@@ -1,9 +1,6 @@
-#region Using Statements
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-#endregion
 
 namespace Revenge_of_the_PNGs
 {
@@ -11,9 +8,6 @@ namespace Revenge_of_the_PNGs
 	{
 		private static Game1 game;
 
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
 		[STAThread]
 		static void Main ()
 		{

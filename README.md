@@ -5,12 +5,17 @@ revenge-of-the-PNGs
 
 TODO:
 
-	-Code cleanup, including improved commenting
+	-Reinstate bullet shooting delay
+	-More testing
+	-Moderate code cleanup, including improved commenting and performance optimizations
 	-Improve projectile hit detection
-	-Grenades
+	-Menu/Pause
+	-Grenades/Laser beam weapons
 	-New opponents with different methods of movement towards player
 	-Bosses
 	-Other game mechanics
+	-Mouse input for shooting
+	-Smoother player movement
 
 Screenshots:
 
