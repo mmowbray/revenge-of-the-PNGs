@@ -45,6 +45,7 @@ namespace Revenge_of_the_PNGs
 		SoundEffect gunFire;
 
 		SpriteFont font;
+		SpriteFont enemyFont;
 		      
 		List<Enemy> enemies;
 		List<Projectile> projectiles;
@@ -99,6 +100,7 @@ namespace Revenge_of_the_PNGs
             gunFire = Content.Load<SoundEffect>("projectileFire.xnb");
 
 			font = Content.Load<SpriteFont>("UIFont.xnb");
+			enemyFont = Content.Load<SpriteFont>("enemyHealthSpriteFont.xnb");
 
 			Enemy.Initialize(GraphicsDevice.Viewport.Height, GraphicsDevice.Viewport.Width, enemyTexture);
 			Player.Initialize(playerTexture, projectileIndicator);
@@ -281,7 +283,7 @@ namespace Revenge_of_the_PNGs
 			player1.Draw (spriteBatch);
 
 			for (int i = 0; i < enemies.Count; i++) {
-				enemies [i].Draw (spriteBatch);
+				enemies [i].Draw (spriteBatch, enemyFont);
 			}
 
 			for (int i = 0; i < projectiles.Count; i++) {

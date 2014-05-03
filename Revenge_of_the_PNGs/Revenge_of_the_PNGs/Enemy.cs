@@ -131,7 +131,7 @@ namespace Revenge_of_the_PNGs
 			}            
         }
 
-		public void Draw(SpriteBatch spriteBatch)//, SpriteFont enemyHealthSpriteFont)
+		public void Draw(SpriteBatch spriteBatch, SpriteFont enemyFont)
         {
 			if (alive)
 			{
@@ -139,7 +139,7 @@ namespace Revenge_of_the_PNGs
 				spriteBatch.Begin();
                 spriteBatch.Draw(enemyTexture, position, drawRectangle, Color.White);
 
-                //spriteBatch.DrawString(enemyHealthSpriteFont, " " + theEnemies[i].health, theEnemies[i].position, Color.Black);
+                spriteBatch.DrawString(enemyFont, " " + health, position, Color.Black);
                 spriteBatch.End();
 
 			}            

@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Revenge_of_the_PNGs/Projectile.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Revenge_of_the_PNGs/Enemy.cs">
     <Files>
-      <File FileName="Revenge_of_the_PNGs/Game1.cs" Line="191" Column="39" />
-      <File FileName="Revenge_of_the_PNGs/Projectile.cs" Line="13" Column="23" />
-      <File FileName="Revenge_of_the_PNGs/Enemy.cs" Line="27" Column="10" />
+      <File FileName="Revenge_of_the_PNGs/Game1.cs" Line="286" Column="45" />
+      <File FileName="Revenge_of_the_PNGs/Projectile.cs" Line="10" Column="3" />
+      <File FileName="Revenge_of_the_PNGs/Enemy.cs" Line="132" Column="10" />
       <File FileName="Revenge_of_the_PNGs/Player.cs" Line="106" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
