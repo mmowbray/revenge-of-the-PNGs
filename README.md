@@ -5,9 +5,9 @@ revenge-of-the-PNGs
 
 TODO:
 
-	-Reinstate bullet shooting delay
+	-Reinstate different enemy type damage resistances
 	-More testing
-	-Moderate code cleanup, including improved commenting and performance optimizations
+	-Slight code cleanup/refactoring, including improved commenting and performance optimizations(off-screen elements)
 	-Improve projectile hit detection
 	-Menu/Pause
 	-Grenades/Laser beam weapons
@@ -21,3 +21,4 @@ Screenshots:
 
 ![screenshot 1](screenshots/screenshot_1.png)
 ![screenshot 2](screenshots/screenshot_2.png)
+![screenshot 3](screenshots/screenshot_3.png)

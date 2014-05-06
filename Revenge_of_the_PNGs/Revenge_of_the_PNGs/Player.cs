@@ -96,7 +96,7 @@ namespace Revenge_of_the_PNGs
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, SpriteFont smallFont)
         {
 			spriteBatch.Begin();
 
@@ -104,6 +104,12 @@ namespace Revenge_of_the_PNGs
             {
                 spriteBatch.Draw(texture, position, playerSpriteMapParts[health], Color.White);
 				spriteBatch.Draw(overlay, overlayPos, projectileIndicatorSpriteMapParts[projectileCount - 1], Color.White);
+
+				if(reloading)
+				{
+					spriteBatch.DrawString (smallFont, "Reloading!", new Vector2 (position.X - 30, position.Y - 30), new Color (89,89,171));
+				}
+
             }
             else
             {

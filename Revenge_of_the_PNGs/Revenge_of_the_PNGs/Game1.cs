@@ -114,6 +114,7 @@ namespace Revenge_of_the_PNGs
 			intermissionLength = TimeSpan.FromSeconds(5);
 			monsterDelay = TimeSpan.FromSeconds(1);
 			reloadTime = TimeSpan.FromSeconds(2);
+			fireDelay = TimeSpan.FromMilliseconds(200);
 
 			StartNewGame();
 		}
@@ -188,26 +189,30 @@ namespace Revenge_of_the_PNGs
 
 			}
 
-			if (!player1.reloading)
+			if (!player1.reloading && gameTime.TotalGameTime - lastShot > fireDelay)
 			{
 				if (keyboard.IsKeyDown (Keys.W)) {
 					projectiles.Add (Projectile.fire (0, player1));
 					player1.projectileCount--;
+					lastShot = gameTime.TotalGameTime;
 				}
 
 				else if (keyboard.IsKeyDown (Keys.A)) {
 					projectiles.Add (Projectile.fire (3, player1));
 					player1.projectileCount--;
+					lastShot = gameTime.TotalGameTime;
 				}
 
 				else if (keyboard.IsKeyDown (Keys.S)) {
 					projectiles.Add (Projectile.fire (2, player1));
 					player1.projectileCount--;
+					lastShot = gameTime.TotalGameTime;
 				}
 
 				else if (keyboard.IsKeyDown (Keys.D)) {
 					projectiles.Add (Projectile.fire (1, player1));
 					player1.projectileCount--;
+					lastShot = gameTime.TotalGameTime;
 				}
 			}
 
@@ -244,7 +249,7 @@ namespace Revenge_of_the_PNGs
 
 			//remove dead elements
 
-			for (int i = 0; i < projectiles.Count; i++) { //worry about off-screen projectiles
+			for (int i = 0; i < projectiles.Count; i++) { //worry about off-screen projectiles in future
 				if (!projectiles [i].active) {
 					projectiles.RemoveAt (i);
 				}
@@ -278,9 +283,9 @@ namespace Revenge_of_the_PNGs
        
 		protected override void Draw (GameTime gameTime)
 		{
-			GraphicsDevice.Clear (new Color (225, 225, 225));
+			GraphicsDevice.Clear (new Color (225, 225, 225)); //light grey
 
-			player1.Draw (spriteBatch);
+			player1.Draw (spriteBatch, font);
 
 			for (int i = 0; i < enemies.Count; i++) {
 				enemies [i].Draw (spriteBatch, enemyFont);
@@ -290,36 +295,30 @@ namespace Revenge_of_the_PNGs
 				projectiles [i].Draw (spriteBatch);
 			}
 
-			switch (currentGameState) {
-			case GameState.Normal:
+			switch (currentGameState)
+			{
+				case GameState.Normal:
 				{
-					spriteBatch.DrawString (font, "tokill:" + toKill, new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 50), Color.DarkRed);
-					spriteBatch.DrawString (font, "tospawn:" + toSpawn, new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 90), Color.DarkRed);
+					//spriteBatch.DrawString (font, "tokill:" + toKill, new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 50), Color.DarkRed); //used previously for debugging
+					//spriteBatch.DrawString (font, "tospawn:" + toSpawn, new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 90), Color.DarkRed);
 					break;
 				}
 
-			case GameState.Intermission:
+				case GameState.Intermission:
 				{
 					spriteBatch.DrawString (font, "WAVE INCOMING!", new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 0), Color.DarkRed);
 					break;
 				}
 
-			case GameState.GameOver:
+				case GameState.GameOver:
 				{	
 					spriteBatch.DrawString (font, "GAME OVER! Press R to restart or Q to quit", new Vector2 (player1.position.X, player1.position.Y - 20), Color.FloralWhite);
 					break;
 				}
 			}
 
-			spriteBatch.DrawString (font, "wave: " + wave, new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 120), Color.Black);
-
-			if (player1.reloading)
-			{
-							spriteBatch.DrawString (font, "RELOADING!", new Vector2 (GraphicsDevice.Viewport.Width / 2 - 80, 300), Color.Black);
-
-			}
-
-        
+			spriteBatch.DrawString (font, "Wave: " + wave, new Vector2 (5, 5), Color.Black);
+			      
             base.Draw(gameTime);
 		}
 	}

@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Revenge_of_the_PNGs/Enemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Revenge_of_the_PNGs/Game1.cs">
     <Files>
-      <File FileName="Revenge_of_the_PNGs/Game1.cs" Line="286" Column="45" />
+      <File FileName="Revenge_of_the_PNGs/Game1.cs" Line="252" Column="96" />
       <File FileName="Revenge_of_the_PNGs/Projectile.cs" Line="10" Column="3" />
-      <File FileName="Revenge_of_the_PNGs/Enemy.cs" Line="132" Column="10" />
-      <File FileName="Revenge_of_the_PNGs/Player.cs" Line="106" Column="1" />
+      <File FileName="Revenge_of_the_PNGs/Enemy.cs" Line="25" Column="30" />
+      <File FileName="Revenge_of_the_PNGs/Player.cs" Line="111" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
