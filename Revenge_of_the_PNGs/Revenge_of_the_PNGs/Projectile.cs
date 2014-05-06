@@ -8,23 +8,23 @@ namespace Revenge_of_the_PNGs
 {
 	public class Projectile
 	{
-	    static Texture2D texture;
+		static Texture2D texture;
 		static SoundEffect gunFire;
 		static int speed = 5;
 
-	    Vector2 position;
-	    public Boolean active;
+		Vector2 position;
+		public Boolean active;
 		public Rectangle rectangle;
 		int dX, dY;
 
 		public Projectile(Vector2 position, int dX, int dY)
-	    {
-	        this.position = position;
-	        this.active = true;
+		{
+			this.position = position;
+			this.active = true;
 			this.rectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 			this.dX = dX;
 			this.dY = dY;
-	    }
+		}
 
 		public static void Initialize (Texture2D projectileTexture, SoundEffect gunFireSound)
 		{
@@ -61,8 +61,8 @@ namespace Revenge_of_the_PNGs
 
 		}
 
-	    public void Update()
-	    {
+		public void Update()
+		{
 
 			if (active)
 			{
@@ -71,22 +71,22 @@ namespace Revenge_of_the_PNGs
 
 				rectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 			}
-            
-	    }
 
-	    public void Draw(SpriteBatch spriteBatch)
-	    {
+		}
+
+		public void Draw(SpriteBatch spriteBatch)
+		{
 			if (active)
 			{
 				spriteBatch.Begin();
-                spriteBatch.Draw(texture, position, Color.White);
-                spriteBatch.End();
-			}            
-	    }
+				spriteBatch.Draw(texture, position, Color.White);
+				spriteBatch.End();
+			}
+		}
 
-	    public void kill()
-	    {
-	        this.active = false;
-	    }
+		public void kill()
+		{
+			this.active = false;
+		}
 	}
 }

@@ -34,18 +34,18 @@ namespace Revenge_of_the_PNGs
 	{
 		GraphicsDeviceManager graphics;
 
-        SpriteBatch spriteBatch;
+		SpriteBatch spriteBatch;
 
-        Texture2D playerTexture;
-        Texture2D enemyTexture;
-        Texture2D projectileTexture;
+		Texture2D playerTexture;
+		Texture2D enemyTexture;
+		Texture2D projectileTexture;
 		Texture2D projectileIndicator;
 
 		SoundEffect gunFire;
 
 		SpriteFont font;
 		SpriteFont enemyFont;
-		      
+
 		List<Enemy> enemies;
 		List<Projectile> projectiles;
 		Player player1;
@@ -56,16 +56,16 @@ namespace Revenge_of_the_PNGs
 		int wave, toSpawn, toKill;
 
 		TimeSpan lastShot;
-        TimeSpan fireDelay;
+		TimeSpan fireDelay;
 
-        TimeSpan lastMonster;
-        TimeSpan monsterDelay;
+		TimeSpan lastMonster;
+		TimeSpan monsterDelay;
 
 		TimeSpan intermissionStart;
-        TimeSpan intermissionLength;
+		TimeSpan intermissionLength;
 
-        TimeSpan reloadStart;
-        TimeSpan reloadTime;
+		TimeSpan reloadStart;
+		TimeSpan reloadTime;
 
 		public Game1 ()
 		{
@@ -84,12 +84,12 @@ namespace Revenge_of_the_PNGs
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            playerTexture = Content.Load<Texture2D>("playerSpriteMap");
-            enemyTexture = Content.Load<Texture2D>("enemySpriteMap");
-            projectileTexture = Content.Load<Texture2D>("projectile");
-            projectileIndicator = Content.Load<Texture2D>("projectileSpriteMap"); ;
+			playerTexture = Content.Load<Texture2D>("playerSpriteMap");
+			enemyTexture = Content.Load<Texture2D>("enemySpriteMap");
+			projectileTexture = Content.Load<Texture2D>("projectile");
+			projectileIndicator = Content.Load<Texture2D>("projectileSpriteMap"); ;
 
-            gunFire = Content.Load<SoundEffect>("projectileFire.xnb");
+			gunFire = Content.Load<SoundEffect>("projectileFire.xnb");
 
 			font = Content.Load<SpriteFont>("UIFont.xnb");
 			enemyFont = Content.Load<SpriteFont>("enemyHealthSpriteFont.xnb");
@@ -98,7 +98,7 @@ namespace Revenge_of_the_PNGs
 			Player.Initialize(playerTexture, projectileIndicator);
 			Projectile.Initialize(projectileTexture, gunFire);
 
-            //enemyDeath = Content.Load<SoundEffect>("enemyDeath");
+			//enemyDeath = Content.Load<SoundEffect>("enemyDeath");
 
 			enemies = new List<Enemy>();
 			projectiles = new List<Projectile>();
@@ -111,7 +111,7 @@ namespace Revenge_of_the_PNGs
 			StartNewGame();
 		}
 
-        protected override void Update (GameTime gameTime)
+		protected override void Update (GameTime gameTime)
 		{
 			//read input
 
@@ -123,7 +123,7 @@ namespace Revenge_of_the_PNGs
 				currentGameState = GameState.GameOver;
 			}
 
-			if (toKill == 0) { //player killed all monsters 
+			if (toKill == 0) { //player killed all monsters
 				currentGameState = GameState.Intermission;
 				intermissionStart = gameTime.TotalGameTime;
 				player1.health = 20;
@@ -258,7 +258,7 @@ namespace Revenge_of_the_PNGs
 			}
 
 			base.Update(gameTime);
-        }
+		}
 
 		public void StartNewGame ()
 		{
@@ -272,7 +272,7 @@ namespace Revenge_of_the_PNGs
 			toSpawn = 6 + wave * 3;
 			toKill = toSpawn;
 		}
-       
+
 		protected override void Draw (GameTime gameTime)
 		{
 			GraphicsDevice.Clear (new Color (225, 225, 225)); //light grey
@@ -303,15 +303,15 @@ namespace Revenge_of_the_PNGs
 				}
 
 				case GameState.GameOver:
-				{	
+				{
 					spriteBatch.DrawString (font, "GAME OVER! Press R to restart or Q to quit", new Vector2 (player1.position.X, player1.position.Y - 20), Color.FloralWhite);
 					break;
 				}
 			}
 
 			spriteBatch.DrawString (font, "Wave: " + wave, new Vector2 (5, 5), Color.Black);
-			      
-            base.Draw(gameTime);
+
+			base.Draw(gameTime);
 		}
 	}
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Revenge_of_the_PNGs
 {
 	public class Enemy
-    {
+	{
 		static Texture2D enemyTexture;
 
 		static Vector2 enemyPositionTL;
@@ -22,7 +22,7 @@ namespace Revenge_of_the_PNGs
 		static Rectangle enemySpriteMapPart4;
 
 		Vector2 position;
-        public Boolean alive;
+		public Boolean alive;
 		Rectangle drawRectangle;
 		public int health;
 		int speed;
@@ -33,9 +33,9 @@ namespace Revenge_of_the_PNGs
 			enemySpriteMapParts = new List<Rectangle>();
 
 			enemySpriteMapPart1 = new Rectangle(0, 0, 25, 25);
-	        enemySpriteMapPart2 = new Rectangle(25, 0, 21, 21);
-	        enemySpriteMapPart3 = new Rectangle(46, 0, 17, 17);
-	        enemySpriteMapPart4 = new Rectangle(63, 0, 13, 13);
+			enemySpriteMapPart2 = new Rectangle(25, 0, 21, 21);
+			enemySpriteMapPart3 = new Rectangle(46, 0, 17, 17);
+			enemySpriteMapPart4 = new Rectangle(63, 0, 13, 13);
 
 			enemySpriteMapParts.Add(enemySpriteMapPart1);
 			enemySpriteMapParts.Add(enemySpriteMapPart2);
@@ -43,26 +43,26 @@ namespace Revenge_of_the_PNGs
 			enemySpriteMapParts.Add(enemySpriteMapPart4);
 
 			enemyPositionTL = new Vector2(0,50);
-	        enemyPositionTR = new Vector2(screenWidth - 50 , 50);
-	        enemyPositionBL = new Vector2(50, screenHeight - 50);
-	        enemyPositionBR = new Vector2(screenWidth - 50 , screenHeight - 50);
+			enemyPositionTR = new Vector2(screenWidth - 50 , 50);
+			enemyPositionBL = new Vector2(50, screenHeight - 50);
+			enemyPositionBR = new Vector2(screenWidth - 50 , screenHeight - 50);
 
 			enemyTexture = enemySpriteMap;
 
 		}
 
-        public Enemy(Vector2 position, Rectangle drawRectangle, int health, int speed)
-        {
-            this.position = position;
-            this.alive = true;
-            this.speed = speed;
-            this.drawRectangle = drawRectangle;
-            this.health = health;
+		public Enemy(Vector2 position, Rectangle drawRectangle, int health, int speed)
+		{
+			this.position = position;
+			this.alive = true;
+			this.speed = speed;
+			this.drawRectangle = drawRectangle;
+			this.health = health;
 			this.rectangle = new Rectangle((int)position.X, (int)position.Y, drawRectangle.Width, drawRectangle.Height);
-        }
+		}
 
 		public static Enemy newRandom()
-        {
+		{
 
 			Random random = new Random();
 
@@ -112,42 +112,42 @@ namespace Revenge_of_the_PNGs
 			}
 
 			return newEnemy;
-        }
+		}
 
-        public void Update(Player player)
-        {
+		public void Update(Player player)
+		{
 			if (alive)
 			{
 				Vector2 direction = new Vector2();
 
-           		direction.X = player.position.X + ((Player.texture.Width / 21) / 2) - (position.X + rectangle.Width / 2);
-                direction.Y = player.position.Y + (Player.texture.Height / 2) - (position.Y + rectangle.Height / 2);
+				direction.X = player.position.X + ((Player.texture.Width / 21) / 2) - (position.X + rectangle.Width / 2);
+				direction.Y = player.position.Y + (Player.texture.Height / 2) - (position.Y + rectangle.Height / 2);
 
-                direction.Normalize();
+				direction.Normalize();
 
-                position += direction * speed;
+				position += direction * speed;
 
 				rectangle = new Rectangle((int)position.X, (int)position.Y, drawRectangle.Width, drawRectangle.Height);
-			}            
-        }
+			}
+		}
 
 		public void Draw(SpriteBatch spriteBatch, SpriteFont enemyFont)
-        {
+		{
 			if (alive)
 			{
 
 				spriteBatch.Begin();
-                spriteBatch.Draw(enemyTexture, position, drawRectangle, Color.White);
+				spriteBatch.Draw(enemyTexture, position, drawRectangle, Color.White);
 
-                spriteBatch.DrawString(enemyFont, " " + health, position, Color.Black);
-                spriteBatch.End();
+				spriteBatch.DrawString(enemyFont, " " + health, position, Color.Black);
+				spriteBatch.End();
 
-			}            
-        }
+			}
+		}
 
-        public void kill()
-        {
-            this.alive = false;
-        }
-    }
+		public void kill()
+		{
+			this.alive = false;
+		}
+	}
 }
