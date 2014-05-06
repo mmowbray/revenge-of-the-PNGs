@@ -32,7 +32,6 @@ namespace Revenge_of_the_PNGs
 
 	public class Game1 : Game
 	{
-
 		GraphicsDeviceManager graphics;
 
         SpriteBatch spriteBatch;
@@ -68,10 +67,6 @@ namespace Revenge_of_the_PNGs
         TimeSpan reloadStart;
         TimeSpan reloadTime;
 
-		/*enum GameState {Normal, Intermission, GameOver}; //could be used instead of booleans?
-
-		GameState currentGameState = GameState.Normal;*/
-
 		public Game1 ()
 		{
 			Content.RootDirectory = "Content";
@@ -82,10 +77,7 @@ namespace Revenge_of_the_PNGs
 
 		protected override void Initialize ()
 		{
-
 			base.Initialize();
-
-			StartNewGame();
 		}
 
 		protected override void LoadContent ()
@@ -189,7 +181,7 @@ namespace Revenge_of_the_PNGs
 
 			}
 
-			if (!player1.reloading && gameTime.TotalGameTime - lastShot > fireDelay)
+			if (!player1.reloading && gameTime.TotalGameTime - lastShot > fireDelay && currentGameState == GameState.Normal)
 			{
 				if (keyboard.IsKeyDown (Keys.W)) {
 					projectiles.Add (Projectile.fire (0, player1));

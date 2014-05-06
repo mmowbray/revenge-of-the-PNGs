@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Revenge_of_the_PNGs/Game1.cs">
     <Files>
-      <File FileName="Revenge_of_the_PNGs/Game1.cs" Line="252" Column="96" />
+      <File FileName="Revenge_of_the_PNGs/Game1.cs" Line="184" Column="115" />
       <File FileName="Revenge_of_the_PNGs/Projectile.cs" Line="10" Column="3" />
-      <File FileName="Revenge_of_the_PNGs/Enemy.cs" Line="25" Column="30" />
+      <File FileName="Revenge_of_the_PNGs/Enemy.cs" Line="137" Column="5" />
       <File FileName="Revenge_of_the_PNGs/Player.cs" Line="111" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
