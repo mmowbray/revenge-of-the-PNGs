@@ -5,6 +5,7 @@ revenge-of-the-PNGs
 
 TODO:
 
+	-Add clear instructions on how to run this game on your platform
 	-Reinstate different enemy type damage resistances
 	-More testing
 	-Slight code cleanup/refactoring, including improved commenting and performance optimizations(off-screen elements)
@@ -21,4 +22,3 @@ Screenshots:
 
 ![screenshot 1](screenshots/screenshot_1.png)
 ![screenshot 2](screenshots/screenshot_2.png)
-![screenshot 3](screenshots/screenshot_3.png)
