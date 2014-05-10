@@ -1,0 +1,16 @@
+# directories #
+
+build/
+desktop/
+gradle/
+ios/
+html/
+
+# files #
+
+build.gradle
+gradlew
+gradlew.bat
+settings.gradle
+
+html/build.gradle
