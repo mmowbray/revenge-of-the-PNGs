@@ -29,7 +29,4 @@ Screenshots:
 
 ![screenshot 1](screenshots/screenshot_1.png)
 ![screenshot 2](screenshots/screenshot_2.png)
-<<<<<<< HEAD
 
-=======
->>>>>>> 78ee54e929cf5c9e46c15db5b54974dce8ed861f
