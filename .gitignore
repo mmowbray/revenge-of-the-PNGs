@@ -4,15 +4,7 @@ build/
 desktop/
 gradle/
 ios/
-
-html/src
-html/war
-html/webapp
-
-html/build/classes
-html/build/dependancy-cache
-html/build/gwt
-html/build/libs
+html/
 
 # files #
 
