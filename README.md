@@ -3,7 +3,7 @@ revenge-of-the-PNGs
 
 2D/LibGDX game. Fight off hordes of invading sprites in progressively more difficult waves!
 
-To play, download Revenge_of_the_PNGs.jar in the root directory!
+To play, download Revenge_of_the_PNGs.jar in the root directory or simply click [this is wrong](http://users.encs.concordia.ca/~m_mowbr/rotp/)
 
 Freshly ported to LibGDX from MonoGame.
 

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.input.*;
 
 public class Player
 {
@@ -44,11 +43,11 @@ public class Player
 		this.speed = speed;
 	}
 
-	public static void Initialize (Texture playerTexture, Texture projectileIndicator)
+	public static void Initialize ()
 	{
 
-		texture = playerTexture;
-		overlay = projectileIndicator;
+		texture = new Texture("playerSpriteMap.png");		
+		overlay = new Texture("projectileSpriteMap.png");	
 
 		//singleBulletReloadTime = new TimeSpan(100);
 

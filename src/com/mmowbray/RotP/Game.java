@@ -6,21 +6,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Game extends ApplicationAdapter
 {
 	SpriteBatch spriteBatch;
-
-	Texture playerTexture;
-	Texture enemyTexture;
-	Texture projectileTexture;
-	Texture projectileIndicator;
 
 	//SoundEffect gunFire;
 
@@ -33,38 +26,32 @@ public class Game extends ApplicationAdapter
 
 	int wave, toSpawn, toKill;
 
-	long lastShot;
-	long fireDelay;
+	long lastShot, fireDelay;
 
-	long lastMonster;
-	long monsterDelay;
+	long lastMonster; //last time a monster was spawned
+	long monsterDelay; //the delay between spawning a new monster
 
-	long intermissionStart;
-	long intermissionLength;
+	long intermissionStart; //last time an intermission was started
+	long intermissionLength; //the length of an intermission
 
-	long reloadStart;
-	long reloadTime;
+	long reloadStart; //last time the player reloaded
+	long reloadTime; //the reloading delay
 	
-	long gameStartTime;
-	long gameTime;
+	long gameStartTime; //the time the game started
+	long gameTime; //the elapsed time since the game was started
 	
 	BitmapFont font;
 
 	@Override
 	public void create ()
 	{
-		spriteBatch = new SpriteBatch();
-		
-		playerTexture = new Texture("playerSpriteMap.png");
-		enemyTexture = new Texture("enemySpriteMap.png");
-		projectileTexture = new Texture("projectile.png");
-		projectileIndicator = new Texture("projectileSpriteMap.png");		
+		spriteBatch = new SpriteBatch();		
 
 		//gunFire = Content.Load<SoundEffect>("projectileFire.xnb");
 
-		Enemy.Initialize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), enemyTexture);
-		Player.Initialize(playerTexture, projectileIndicator);
-		Projectile.Initialize(projectileTexture/*, gunFire*/);
+		Enemy.Initialize();
+		Player.Initialize();
+		Projectile.Initialize(/*gunFire*/);
 
 		//enemyDeath = Content.Load<SoundEffect>("enemyDeath");
 
@@ -74,10 +61,7 @@ public class Game extends ApplicationAdapter
 		intermissionLength = 5000; //5 seconds
 		monsterDelay = 1000; //1 second
 		reloadTime = 2000; //2 seconds
-		fireDelay = 160; //160 ms			
-		
-		gameStartTime = TimeUtils.millis();
-		gameTime = 0;
+		fireDelay = 160; //160 ms
 		
 		font = new BitmapFont(Gdx.files.internal("uiFont.fnt"), false);
 		
@@ -88,6 +72,7 @@ public class Game extends ApplicationAdapter
 	public void render ()
 	{
 		//update gameTime
+		
 		gameTime = TimeUtils.timeSinceMillis(gameStartTime);
 
 		//check+update game state
@@ -139,18 +124,14 @@ public class Game extends ApplicationAdapter
 
 		if (!player1.reloading && player1.projectileCount < 2)
 		{
-
 			player1.reloading = true;
 			reloadStart = gameTime;
-
 		}
 
 		if (player1.reloading && gameTime - reloadStart > reloadTime)
 		{
-
 			player1.reloading = false;
 			player1.projectileCount = 10;
-
 		}
 
 		if (!player1.reloading && gameTime - lastShot > fireDelay && currentGameState == GameState.Normal)
@@ -275,9 +256,9 @@ public class Game extends ApplicationAdapter
 	}
 	
 	public void StartNewGame ()
-	{
+	{		
 		currentGameState = GameState.Intermission;
-		player1 = new Player(new Vector2(((Gdx.graphics.getWidth() - (playerTexture.getWidth() / 21)) / 2), ((Gdx.graphics.getHeight() - playerTexture.getHeight()) / 2)), 7);
+		player1 = new Player(new Vector2(((Gdx.graphics.getWidth() - (Player.texture.getWidth() / 21)) / 2), ((Gdx.graphics.getHeight() - Player.texture.getHeight()) / 2)), 7);
 
 		enemies.clear();
 		projectiles.clear();
@@ -285,5 +266,8 @@ public class Game extends ApplicationAdapter
 		wave = 1;
 		toSpawn = 6 + wave * 3;
 		toKill = toSpawn;
+		
+		gameStartTime = TimeUtils.millis();
+		gameTime = 0;
 	}
 }

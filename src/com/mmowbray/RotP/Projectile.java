@@ -25,9 +25,9 @@ public class Projectile
 		this.dY = dY;
 	}
 
-	public static void Initialize (Texture projectileTexture/*, SoundEffect gunFireSound*/)
+	public static void Initialize (/*SoundEffect gunFireSound*/)
 	{
-		texture = projectileTexture;
+		texture = new Texture("projectile.png");	
 		//gunFire = gunFireSound;
 	}
 
@@ -39,7 +39,7 @@ public class Projectile
 		switch (direction)
 		{
 			case 0:
-				newProjectile = new Projectile (new Vector2 (player.position.x + (Player.texture.getWidth() / 42) - (texture.getWidth() / 2), player.position.y - texture.getHeight()), 0, -1);
+				newProjectile = new Projectile (new Vector2 (player.position.x + (Player.texture.getWidth() / 42) - (texture.getWidth() / 2), player.position.y + Player.texture.getHeight()), 0, 1);
 				break;
 
 			case 1:
@@ -47,7 +47,8 @@ public class Projectile
 				break;
 
 			case 2:
-				newProjectile = new Projectile (new Vector2 (player.position.x + (Player.texture.getWidth() / 42) - (texture.getWidth() / 2), player.position.y + Player.texture.getHeight()), 0, 1);
+				
+				newProjectile = new Projectile (new Vector2 (player.position.x + (Player.texture.getWidth() / 42) - (texture.getWidth() / 2), player.position.y - texture.getHeight()), 0, -1);
 				break;
 
 			case 3:

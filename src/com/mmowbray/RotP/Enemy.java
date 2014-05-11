@@ -33,9 +33,19 @@ public class Enemy
 	int speed;
 	public Rectangle rectangle;
 
-	public static void Initialize (int screenHeight, int screenWidth, Texture enemySpriteMap)
+	public Enemy(Vector2 position, TextureRegion drawRectangle, int health, int speed)
 	{
-		enemyTexture = enemySpriteMap;
+		this.position = position;
+		this.alive = true;
+		this.speed = speed;
+		this.drawRectangle = drawRectangle;
+		this.health = health;
+		this.rectangle = new Rectangle(position.x, position.y, drawRectangle.getRegionWidth(), drawRectangle.getRegionHeight());
+	}
+	
+	public static void Initialize ()
+	{
+		enemyTexture = new Texture("enemySpriteMap.png");
 		
 		enemySpriteMapParts = new ArrayList<TextureRegion>();
 
@@ -49,21 +59,10 @@ public class Enemy
 		enemySpriteMapParts.add(enemySpriteMapPart3);
 		enemySpriteMapParts.add(enemySpriteMapPart4);
 
-		enemyPositionTL = new Vector2(0,50);
-		enemyPositionTR = new Vector2(screenWidth - 50 , 50);
-		enemyPositionBL = new Vector2(50, screenHeight - 50);
-		enemyPositionBR = new Vector2(screenWidth - 50 , screenHeight - 50);	
-
-	}
-
-	public Enemy(Vector2 position, TextureRegion drawRectangle, int health, int speed)
-	{
-		this.position = position;
-		this.alive = true;
-		this.speed = speed;
-		this.drawRectangle = drawRectangle;
-		this.health = health;
-		this.rectangle = new Rectangle(position.x, position.y, drawRectangle.getRegionWidth(), drawRectangle.getRegionHeight());
+		enemyPositionTL = new Vector2(0, Gdx.graphics.getHeight());
+		enemyPositionTR = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		enemyPositionBL = new Vector2(0, 0);
+		enemyPositionBR = new Vector2(Gdx.graphics.getWidth(), 0);
 	}
 
 	public static Enemy newRandom()
