@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Enemy
 {
 	static Texture enemyTexture;
-
-	static Vector2 enemyPositionTL;
-	static Vector2 enemyPositionTR;
-	static Vector2 enemyPositionBL;
-	static Vector2 enemyPositionBR;
 
 	static ArrayList<TextureRegion> enemySpriteMapParts;
 
@@ -32,6 +31,7 @@ public class Enemy
 	public int health;
 	int speed;
 	public Rectangle rectangle;
+	static Random random;
 
 	public Enemy(Vector2 position, TextureRegion drawRectangle, int health, int speed)
 	{
@@ -58,17 +58,12 @@ public class Enemy
 		enemySpriteMapParts.add(enemySpriteMapPart2);
 		enemySpriteMapParts.add(enemySpriteMapPart3);
 		enemySpriteMapParts.add(enemySpriteMapPart4);
-
-		enemyPositionTL = new Vector2(0, Gdx.graphics.getHeight());
-		enemyPositionTR = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		enemyPositionBL = new Vector2(0, 0);
-		enemyPositionBR = new Vector2(Gdx.graphics.getWidth(), 0);
+		
+		random = new Random();
 	}
 
 	public static Enemy newRandom()
 	{
-
-		Random random = new Random();
 
 		int randomSpawnLocation = random.nextInt (4); //0 to 3 (inclusive)
 		int randomEnemyType = random.nextInt (4);
@@ -78,44 +73,40 @@ public class Enemy
 		switch (randomSpawnLocation)
 		{
 			case 0:
-				spawnPosition = enemyPositionTL;
+				spawnPosition = new Vector2(0, Gdx.graphics.getHeight()); //top-left
 				break;
 
 			case 1:
-				spawnPosition = enemyPositionTR;
+				spawnPosition = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //top-right
 				break;
 
 			case 2:
-				spawnPosition = enemyPositionBL;
+				spawnPosition = new Vector2(0, 0); //bottom-left
 				break;
 
 			case 3:
-				spawnPosition = enemyPositionBR;
+				spawnPosition = new Vector2(Gdx.graphics.getWidth(), 0); //bottom-right
 				break;
 		}
-
-		Enemy newEnemy = null;
+		
+		Gdx.app.log("spawnPosition", "spawning at location: (" + spawnPosition.x + ", " + spawnPosition.y + "). [" + "location: " + randomSpawnLocation + ", type: " + randomEnemyType + "]");
 
 		switch (randomEnemyType)
 		{
 			case 0:
-				newEnemy = new Enemy(spawnPosition, enemySpriteMapParts.get(0), 4, 1);
-				break;
+				return new Enemy(spawnPosition, enemySpriteMapParts.get(0), 4, 1);
 
 			case 1:
-				newEnemy = new Enemy(spawnPosition, enemySpriteMapParts.get(1), 3, 2);
-				break;
+				return new Enemy(spawnPosition, enemySpriteMapParts.get(1), 3, 2);
 
 			case 2:
-				newEnemy = new Enemy(spawnPosition, enemySpriteMapParts.get(2), 2, 3);
-				break;
+				return new Enemy(spawnPosition, enemySpriteMapParts.get(2), 2, 3);
 
 			case 3:
-				newEnemy = new Enemy(spawnPosition, enemySpriteMapParts.get(3), 1, 4);
-				break;
+				return new Enemy(spawnPosition, enemySpriteMapParts.get(3), 1, 4);
 		}
 
-		return newEnemy;
+		return null;
 	}
 
 	public void Update(Player player)
@@ -136,20 +127,41 @@ public class Enemy
 		}
 	}
 
-	public void Draw(SpriteBatch spriteBatch/*, SpriteFont enemyFont*/)
+	public void Draw(SpriteBatch spriteBatch, ShapeRenderer sr, boolean debug, BitmapFont smallUI/*, SpriteFont enemyFont*/)
 	{
 		if (alive)
 		{
 			spriteBatch.begin();
 			spriteBatch.draw(drawRectangle, position.x, position.y);
+			smallUI.draw(spriteBatch, "" + health, position.x + 4, position.y + rectangle.height - 4);
 
 			//spriteBatch.DrawString(enemyFont, " " + health, position, Color.Black);
 			spriteBatch.end();
+		}
+		
+		if(debug)
+		{
+			sr.begin(ShapeType.Line);
+			sr.setColor(Color.BLUE);
+			sr.rect(position.x, position.y, rectangle.width, rectangle.height);
+			sr.end();
 		}
 	}
 
 	public void kill()
 	{
 		this.alive = false;
+	}
+	
+	public void lostHealth(int damage)
+	{
+		if(health - damage < 1)
+		{
+			kill();
+		}
+		else
+		{
+			health -= damage;
+		}
 	}
 }

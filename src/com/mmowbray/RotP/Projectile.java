@@ -1,7 +1,10 @@
 package com.mmowbray.RotP;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -74,13 +77,21 @@ public class Projectile
 
 	}
 
-	public void Draw(SpriteBatch spriteBatch)
+	public void Draw(SpriteBatch spriteBatch, ShapeRenderer sr, boolean debug)
 	{
 		if (active)
 		{
 			spriteBatch.begin();
 			spriteBatch.draw(texture, position.x, position.y);
 			spriteBatch.end();
+		}
+		
+		if(debug)
+		{
+			sr.begin(ShapeType.Line);
+			sr.setColor(Color.MAGENTA);
+			sr.rect(position.x, position.y, rectangle.width, rectangle.height);
+			sr.end();
 		}
 	}
 

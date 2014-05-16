@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -40,7 +43,14 @@ public class Game extends ApplicationAdapter
 	long gameStartTime; //the time the game started
 	long gameTime; //the elapsed time since the game was started
 	
-	BitmapFont font;
+	long lastPress; //when debug button was last pressed
+	long pressDelay; //delay for toggling debug mode
+	
+	boolean debug;
+	
+	BitmapFont font, smallUI;
+	Texture instructions;
+	ShapeRenderer sr;
 
 	@Override
 	public void create ()
@@ -58,12 +68,21 @@ public class Game extends ApplicationAdapter
 		enemies = new ArrayList<Enemy>();
 		projectiles = new ArrayList<Projectile>();
 
-		intermissionLength = 5000; //5 seconds
-		monsterDelay = 1000; //1 second
-		reloadTime = 2000; //2 seconds
+		intermissionLength = 5500; //5.5 seconds
+		monsterDelay = 1500; //1.5 seconds
+		reloadTime = 1400; //1.4 seconds
 		fireDelay = 160; //160 ms
+		pressDelay = 250; //250 ms
+		
+		debug = false;
 		
 		font = new BitmapFont(Gdx.files.internal("uiFont.fnt"), false);
+		smallUI = new BitmapFont(Gdx.files.internal("smallUI.fnt"), false);
+		
+		instructions = new Texture("instructions.png");
+		
+		sr = new ShapeRenderer();
+		sr.setColor(Color.BLUE);
 		
 		StartNewGame();
 	}
@@ -71,13 +90,19 @@ public class Game extends ApplicationAdapter
 	@Override
 	public void render ()
 	{
-		//update gameTime
+		//update gameTime + debug mode
 		
 		gameTime = TimeUtils.timeSinceMillis(gameStartTime);
+		
+		if (gameTime - lastPress > pressDelay && Gdx.input.isKeyPressed(Keys.SPACE)){
+			debug = !debug; //toggle debug
+			lastPress = gameTime;
+		}
 
 		//check+update game state
-
+		
 		if (!player1.alive) { //player was killed
+			player1.kill();
 			currentGameState = GameState.GameOver;
 		}
 
@@ -109,8 +134,39 @@ public class Game extends ApplicationAdapter
 			}
 
 			if (Gdx.input.isKeyPressed(Keys.Q)) {
-				System.exit(0);
+				System.exit(0); //must be a more generic method (GDX)
 			}
+		}
+		
+		//collision detection
+				
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			
+			if (enemies.get(i).rectangle.overlaps (player1.rectangle)) //enemy collides with player
+			{
+				enemies.get(i).kill();
+				toKill--;
+				player1.lostHealth(enemies.get(i).health);
+			}		
+
+			if (enemies.get(i).alive) //wasn't previously killed by colliding with player
+			{
+				for (int j = 0; j < projectiles.size(); j++) //check against all projectiles
+				{
+					if (enemies.get(i).rectangle.overlaps (projectiles.get(j).rectangle))
+					{
+						enemies.get(i).lostHealth(1);
+						projectiles.get(j).kill ();
+					}
+				}
+				
+				if(!enemies.get(i).alive)
+				{
+					toKill--;
+				}
+			}
+
 		}
 
 		//move+manipulate objects
@@ -171,28 +227,6 @@ public class Game extends ApplicationAdapter
 			enemies.get(i).Update (player1);
 		}
 
-		//collision detection
-
-		for (int i = 0; i < enemies.size(); i++)
-		{
-			for (int j = 0; j < projectiles.size(); j++)
-			{
-				if (enemies.get(i).rectangle.overlaps (projectiles.get(j).rectangle) && enemies.get(i).alive && projectiles.get(j).active)
-				{
-					enemies.get(i).kill ();
-					toKill--;
-					projectiles.get(j).kill ();
-				}
-			}
-
-			if (enemies.get(i).rectangle.overlaps (player1.rectangle) && enemies.get(i).alive)
-			{
-				enemies.get(i).kill ();
-				toKill--;
-				player1.health -= enemies.get(i).health;
-			}
-		}
-
 		//remove dead elements
 
 		for (int i = 0; i < projectiles.size(); i++) { //worry about off-screen projectiles in future
@@ -207,23 +241,19 @@ public class Game extends ApplicationAdapter
 			}
 		}
 
-		if (player1.health < 1) {
-			player1.kill ();
-		}
-
 		//draw 
 		
-		Gdx.gl.glClearColor(0,0,0,0); //black, would prefer grey
+		Gdx.gl.glClearColor(0.75f,0.75f,0.75f,1f); // grey
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		player1.Draw (spriteBatch/* font*/);
+		player1.Draw (spriteBatch, sr, debug/* font*/);
 
 		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).Draw (spriteBatch/*, enemyFont*/);
+			enemies.get(i).Draw (spriteBatch, sr, debug, smallUI/*, enemyFont*/);
 		}
 
 		for (int i = 0; i < projectiles.size(); i++) {
-			projectiles.get(i).Draw (spriteBatch);
+			projectiles.get(i).Draw (spriteBatch, sr, debug);
 		}
 
 		spriteBatch.begin();
@@ -239,6 +269,12 @@ public class Game extends ApplicationAdapter
 			case Intermission:
 			{
 				font.draw(spriteBatch, "WAVE INCOMING!", Gdx.graphics.getWidth() / 2 - 120, Gdx.graphics.getHeight() - 5);
+				
+				if(wave == 1)
+				{
+					spriteBatch.draw(instructions, (Gdx.graphics.getWidth() - instructions.getWidth()) / 2, (Gdx.graphics.getHeight() - instructions.getHeight()) / 2);
+				}
+				
 				break;
 			}
 
@@ -247,12 +283,13 @@ public class Game extends ApplicationAdapter
 				font.draw(spriteBatch, "GAME OVER! Press R to restart or Q to quit", player1.position.x, player1.position.y);
 				break;
 			}
+						
 		}
 		
 		font.draw(spriteBatch, "Wave: " + wave, 5, Gdx.graphics.getHeight() - 5);
 		
 		spriteBatch.end();
-
+		
 	}
 	
 	public void StartNewGame ()
@@ -264,10 +301,12 @@ public class Game extends ApplicationAdapter
 		projectiles.clear();
 
 		wave = 1;
-		toSpawn = 6 + wave * 3;
+		toSpawn = 2 * wave + 6;
 		toKill = toSpawn;
+		lastMonster = 0;
 		
 		gameStartTime = TimeUtils.millis();
 		gameTime = 0;
+		lastPress = gameTime - pressDelay;
 	}
 }

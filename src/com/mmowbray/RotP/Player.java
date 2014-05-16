@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player
 {
@@ -104,7 +107,7 @@ public class Player
 
 	}
 
-	public void Draw(SpriteBatch spriteBatch /*,SpriteFont smallFont*/)
+	public void Draw(SpriteBatch spriteBatch, ShapeRenderer sr, boolean debug/*,SpriteFont smallFont*/)
 	{
 		spriteBatch.begin();
 
@@ -119,12 +122,21 @@ public class Player
 			}
 
 		}
-		else
+		else //dead player
 		{
 			spriteBatch.draw(playerSpriteMapParts.get(0), position.x, position.y);
 		}
 
 		spriteBatch.end();
+		
+		if(debug)
+		{
+			sr.begin(ShapeType.Line);
+			sr.setColor(Color.CYAN);
+			sr.rect(position.x, position.y, rectangle.width, rectangle.height);
+			sr.end();
+		}
+		
 	}
 
 	public void reset()
@@ -141,7 +153,19 @@ public class Player
 	}
 	public void kill()
 	{
+		health = 0;
 		alive = false;
+	}
+	public void lostHealth(int damage)
+	{
+		if(health - damage < 1)
+		{
+			kill();
+		}
+		else
+		{
+			health -= damage;
+		}
 	}
 
 }
