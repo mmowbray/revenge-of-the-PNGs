@@ -2,11 +2,11 @@ revenge-of-the-PNGs
 ===================
 
 2D/LibGDX game
-The .pngs have revolted! Fight off hordes of invading sprites in progressively difficult waves!
+The .pngs have revolted! Fight off hordes of invading sprites in progressively harder waves!
 
 Controls: WASD to shoot, and arrow keys for movement. Space bar toggles rectangle drawing for debugging purposes
 
-To play, download Revenge_of_the_PNGs.jar in the root directory or simply click [here](http://users.encs.concordia.ca/~m_mowbr/revenge_of_the_PNGs/)
+To play, download Revenge_of_the_PNGs.jar in the root directory or simply click [here](http://mmowbray.net/projects/revenge-of-the-PNGs/)
 
 Freshly ported to LibGDX from MonoGame.
 
