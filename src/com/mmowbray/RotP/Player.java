@@ -16,13 +16,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player
 {
-	
+
 	static ArrayList<TextureRegion> playerSpriteMapParts;
 	static ArrayList<TextureRegion> projectileIndicatorSpriteMapParts;
 	public static Texture texture;
 	public static Texture overlay;
 	//static TimeSpan singleBulletReloadTime;
-	
+
 	public Vector2 position;
 	public Vector2 overlayPos;
 	public Boolean alive;
@@ -49,8 +49,8 @@ public class Player
 	public static void Initialize ()
 	{
 
-		texture = new Texture("playerSpriteMap.png");		
-		overlay = new Texture("projectileSpriteMap.png");	
+		texture = new Texture("playerSpriteMap.png");
+		overlay = new Texture("projectileSpriteMap.png");
 
 		//singleBulletReloadTime = new TimeSpan(100);
 
@@ -58,9 +58,9 @@ public class Player
 
 		for (int i = 0; i < 21; i++) //there are 21 different spritemap parts for the player in playerSpriteMap.png
 		{
-			
+
 			TextureRegion newSpriteMapPart = new TextureRegion(texture, i * 34, 0, 34, 34);
-			
+
 			playerSpriteMapParts.add(newSpriteMapPart);
 		}
 
@@ -98,7 +98,7 @@ public class Player
 		}
 
 		position.x = MathUtils.clamp(position.x, 0, screenWidth - (texture.getWidth() / 21));
-		position.y = MathUtils.clamp(position.y, 0, screenHeight - texture.getHeight());	
+		position.y = MathUtils.clamp(position.y, 0, screenHeight - texture.getHeight());
 
 		rectangle = new Rectangle(position.x, position.y, texture.getWidth() / 21, texture.getHeight());
 
@@ -128,7 +128,7 @@ public class Player
 		}
 
 		spriteBatch.end();
-		
+
 		if(debug)
 		{
 			sr.begin(ShapeType.Line);
@@ -136,7 +136,6 @@ public class Player
 			sr.rect(position.x, position.y, rectangle.width, rectangle.height);
 			sr.end();
 		}
-		
 	}
 
 	public void reset()
@@ -167,5 +166,4 @@ public class Player
 			health -= damage;
 		}
 	}
-
 }

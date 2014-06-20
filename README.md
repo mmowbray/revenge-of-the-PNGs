@@ -12,13 +12,10 @@ Freshly ported to LibGDX from MonoGame.
 
 TODO:
 
-	-Enemy movement at times jerky
 	-Add sounds
-
-	-Reinstate score
 	-Slight code cleanup/refactoring, including improved commenting and performance optimizations(off-screen elements)
 	-Improve projectile hit detection
-	-Menu/Pause
+	-Menu
 	-Grenades/Laser beam weapons
 	-New opponents with different methods of movement towards player
 	-Bosses
@@ -26,9 +23,15 @@ TODO:
 	-Mouse input for shooting
 	-Smoother player movement
 
+BUGS:
+
+-Enemy movement at times jerky
+-Score implementation possibly unclear to player
+-Slight pause menu timing issues
+
 Screenshots:
 
 ![screenshot 1](screenshots/screenshot_1.png)
 ![screenshot 2](screenshots/screenshot_2.png)
 ![screenshot 3](screenshots/screenshot_3.png)
-
+![screenshot 3](screenshots/screenshot_4.png)

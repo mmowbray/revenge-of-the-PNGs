@@ -29,7 +29,7 @@ public class Enemy
 	public Boolean alive;
 	TextureRegion drawRectangle;
 	public int health;
-	int speed;
+	public int speed;
 	public Rectangle rectangle;
 	static Random random;
 
@@ -153,15 +153,17 @@ public class Enemy
 		this.alive = false;
 	}
 	
-	public void lostHealth(int damage)
+	public boolean lostHealth(int damage) //returns true if hit kills enemy
 	{
 		if(health - damage < 1)
 		{
 			kill();
+			return true;
 		}
 		else
 		{
 			health -= damage;
+			return false;
 		}
 	}
 }
