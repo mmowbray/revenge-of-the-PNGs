@@ -25,9 +25,9 @@ TODO:
 
 BUGS:
 
--Enemy movement at times jerky
--Score implementation possibly unclear to player
--Slight pause menu timing issues
+	-Enemy movement at times jerky
+	-Score implementation possibly unclear to player
+	-Slight pause menu timing issues
 
 Screenshots:
 
